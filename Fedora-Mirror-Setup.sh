@@ -25,3 +25,11 @@ sudo dnf groupupdate sound-and-video -y
 sudo dnf check-update -y
 
 dnf check-update -y
+
+pkcon refresh
+
+sudo pkcon refresh
+
+flatpak remote-delete fedora
+
+flatpak remote-delete fedora-testing
