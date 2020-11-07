@@ -1,4 +1,4 @@
-# Fedora-Mirror-Setup
+# Fedora-Setup
 Setup Fastest Mirrors and RPMFusion on Fedora
 
 Disable Firewall and Selinux
