@@ -26,6 +26,24 @@ sudo dnf check-update -y
 
 dnf check-update -y
 
+sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+
+sudo setenforce 0
+
+sudo systemctl stop firewalld
+
+sudo systemctl disable firewalld
+
+sudo dnf install kernel-tools -y
+
+sudo systemctl enable cpupower
+
+sudo systemctl start cpupower
+
+sudo echo -e "vm.swappiness = 0\nvm.vfs_cache_pressure = 1\nvm.dirty_background_bytes = 4194304\nvm.dirty_bytes = 4194304\n" >> /etc/sysctl.d/99-sysctl.conf
+
+sudo sysctl -p
+
 pkcon refresh
 
 sudo pkcon refresh
