@@ -1,53 +1,55 @@
-sudo sed -i 's/http\:\/\/download.example\/pub/https\:\/\/mirrors.dotsrc.org/g' /etc/yum.repos.d/*
+sudo -s << EOF
 
-sudo sed -i 's/#baseurl/baseurl/g' /etc/yum.repos.d/*
+sed -i 's/http\:\/\/download.example\/pub/https\:\/\/mirrors.dotsrc.org/g' /etc/yum.repos.d/*
 
-sudo sed -i 's/metalink/#metalink/g' /etc/yum.repos.d/*
+sed -i 's/#baseurl/baseurl/g' /etc/yum.repos.d/*
 
-sudo sed -i 's/#metalink/metalink/g' /etc/yum.repos.d/fedora-cisco*
+sed -i 's/metalink/#metalink/g' /etc/yum.repos.d/*
 
-sudo dnf check-update -y
-
-dnf check-update -y
-
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
-
-sudo sed -i 's/#baseurl/baseurl/g' /etc/yum.repos.d/rpmfusion*
-
-sudo sed -i 's/metalink/#metalink/g' /etc/yum.repos.d/rpmfusion*
-
-sudo dnf groupupdate core -y
-
-sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
-
-sudo dnf groupupdate sound-and-video -y
-
-sudo dnf check-update -y
+sed -i 's/#metalink/metalink/g' /etc/yum.repos.d/fedora-cisco*
 
 dnf check-update -y
 
-sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
+dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 
-sudo setenforce 0
+sed -i 's/#baseurl/baseurl/g' /etc/yum.repos.d/rpmfusion*
 
-sudo systemctl stop firewalld
+sed -i 's/metalink/#metalink/g' /etc/yum.repos.d/rpmfusion*
 
-sudo systemctl disable firewalld
+dnf groupupdate core -y
 
-sudo dnf install kernel-tools -y
+dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
 
-sudo systemctl enable cpupower
+dnf groupupdate sound-and-video -y
 
-sudo systemctl start cpupower
+dnf check-update -y
 
-sudo echo -e "vm.swappiness = 0\nvm.vfs_cache_pressure = 1\nvm.dirty_background_bytes = 4194304\nvm.dirty_bytes = 4194304\n" >> /etc/sysctl.d/99-sysctl.conf
+sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 
-sudo sysctl -p
+setenforce 0
+
+systemctl stop firewalld
+
+systemctl disable firewalld
+
+dnf install kernel-tools -y
+
+systemctl enable cpupower
+
+systemctl start cpupower
+
+echo -e "vm.swappiness = 0\nvm.vfs_cache_pressure = 1\nvm.dirty_background_bytes = 4194304\nvm.dirty_bytes = 4194304\n" >> /etc/sysctl.d/99-sysctl.conf
+
+sysctl -p
 
 pkcon refresh
-
-sudo pkcon refresh
 
 flatpak remote-delete fedora
 
 flatpak remote-delete fedora-testing
+
+EOF
+
+dnf check-update -y
+
+pkcon refresh
