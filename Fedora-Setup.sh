@@ -1,24 +1,22 @@
 sudo -s << EOF
 
-sed -i 's/http\:\/\/download.example\/pub/https\:\/\/mirrors.dotsrc.org/g' /etc/yum.repos.d/*
+sed -i 's|download.example|mirror.math.princeton.edu|g' /etc/yum.repos.d/*
 
-sed -i 's/#baseurl/baseurl/g' /etc/yum.repos.d/*
+sed -i 's|#baseurl|baseurl|g' /etc/yum.repos.d/*
 
-sed -i 's/metalink/#metalink/g' /etc/yum.repos.d/*
+sed -i 's|metalink|#metalink|g' /etc/yum.repos.d/*
 
-sed -i 's/#metalink/metalink/g' /etc/yum.repos.d/fedora-cisco*
+sed -i 's|#metalink|metalink|g' /etc/yum.repos.d/fedora-cisco*
 
-dnf check-update -y
+dnf makecache -y
 
 dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 
-sed -i 's/http\:/https\:/g' /etc/yum.repos.d/rpmfusion*
+sed -i 's|download1.rpmfusion.org|mirror.math.princeton.edu/pub/rpmfusion|g' /etc/yum.repos.d/rpmfusion*
 
-sed -i 's/#baseurl/baseurl/g' /etc/yum.repos.d/rpmfusion*
+sed -i 's|#baseurl|baseurl|g' /etc/yum.repos.d/rpmfusion*
 
-sed -i 's/metalink/#metalink/g' /etc/yum.repos.d/rpmfusion*
-
-rm /etc/yum.repos.d/*test*
+sed -i 's|metalink|#metalink|g' /etc/yum.repos.d/rpmfusion*
 
 dnf groupupdate core -y
 
@@ -26,9 +24,9 @@ dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKi
 
 dnf groupupdate sound-and-video -y
 
-dnf check-update -y
+dnf makecache -y
 
-sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+sed -i 's|SELINUX=enforcing|SELINUX=permissive|g' /etc/selinux/config
 
 setenforce 0
 
