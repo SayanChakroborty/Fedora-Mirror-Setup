@@ -1,6 +1,6 @@
 sudo -s << EOF
 
-sed -i 's|download.example|mirror.math.princeton.edu|g' /etc/yum.repos.d/*
+sed -i 's|download.example/pub|mirrors.dotsrc.org|g' /etc/yum.repos.d/*
 
 sed -i 's|#baseurl|baseurl|g' /etc/yum.repos.d/*
 
@@ -8,11 +8,9 @@ sed -i 's|metalink|#metalink|g' /etc/yum.repos.d/*
 
 sed -i 's|#metalink|metalink|g' /etc/yum.repos.d/fedora-cisco*
 
-dnf makecache -y
+dnf makecache
 
 dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
-
-sed -i 's|download1.rpmfusion.org|mirror.math.princeton.edu/pub/rpmfusion|g' /etc/yum.repos.d/rpmfusion*
 
 sed -i 's|#baseurl|baseurl|g' /etc/yum.repos.d/rpmfusion*
 
@@ -24,7 +22,7 @@ dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKi
 
 dnf groupupdate sound-and-video -y
 
-dnf makecache -y
+dnf makecache
 
 sed -i 's|SELINUX=enforcing|SELINUX=permissive|g' /etc/selinux/config
 
@@ -52,6 +50,6 @@ flatpak remote-delete fedora-testing
 
 EOF
 
-dnf check-update -y
+dnf check-update
 
 pkcon refresh
