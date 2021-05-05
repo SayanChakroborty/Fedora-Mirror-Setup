@@ -1,6 +1,6 @@
 sudo -s << EOF
 
-sed -i 's|download.example/pub|mirrors.dotsrc.org|g' /etc/yum.repos.d/*
+sed -i 's|download.example|download-ib01.fedoraproject.org|g' /etc/yum.repos.d/*
 
 sed -i 's|#baseurl|baseurl|g' /etc/yum.repos.d/*
 
@@ -11,6 +11,8 @@ sed -i 's|#metalink|metalink|g' /etc/yum.repos.d/fedora-cisco*
 dnf makecache
 
 dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+
+sed -i 's|download1.rpmfusion.org|download0.rpmfusion.org|g' /etc/yum.repos.d/rpmfusion*
 
 sed -i 's|#baseurl|baseurl|g' /etc/yum.repos.d/rpmfusion*
 
