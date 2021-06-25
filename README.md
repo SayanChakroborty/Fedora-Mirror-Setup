@@ -1,10 +1,8 @@
 # Fedora-Setup
-Setup Fastest Mirrors and RPMFusion on Fedora
-
-Disable Firewall and Selinux
+Setup Faster Mirrors and RPMFusion on Fedora
 
 Increase Performance
 
-Remove "Fedora" Flatpak remote
+Remove "Fedora" Flatpak remote source
 
-# NOTE: Potentially dangerous as this script runs with root permissions (with user consent of course)
+# NOTE: This script runs with root permissions
