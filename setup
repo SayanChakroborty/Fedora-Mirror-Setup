@@ -16,13 +16,13 @@ dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKi
 
 dnf groupupdate sound-and-video -y
 
-sed -i 's SELINUX=enforcing SELINUX=permissive g' /etc/selinux/config
+#sed -i 's SELINUX=enforcing SELINUX=permissive g' /etc/selinux/config
 
-setenforce 0
+#setenforce 0
 
-systemctl stop firewalld
+#systemctl stop firewalld
 
-systemctl disable firewalld
+#systemctl disable firewalld
 
 dnf install kernel-tools -y
 
